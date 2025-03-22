@@ -1,4 +1,3 @@
-
 //
 //  LoginView.swift
 //  iOS_Week1_ASS1
@@ -8,12 +7,15 @@
 
 import SwiftUI
 
-struct LoginView: View {
+struct SplashView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            Color.green01.edgesIgnoringSafeArea(.all) //위에 상단까지 전부 초록색으로 해준다!
+            Image("StarbucksLogo3x") //에셋에 넣은 사진을 불러올 때는 string으로 파일이름 쓰기!
+        }
     }
 }
 
 #Preview {
-    LoginView()
+    SplashView()
 }
