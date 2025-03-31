@@ -7,11 +7,8 @@
 
 import Foundation
 
-class UserViewModel : ObservableObject{
-    
-    @Published var userModel : UserModel
-    init (userModel: UserModel){
-        self.userModel = userModel
-    }
+class LoginViewModel : ObservableObject{
+    @Published var id: String = ""
+    @Published var pwd: String = ""
     
 }
