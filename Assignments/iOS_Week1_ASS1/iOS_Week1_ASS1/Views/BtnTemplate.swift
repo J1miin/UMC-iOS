@@ -26,7 +26,7 @@ struct BtnTemplate: View {
             .padding()
             .background(Color.white)
             .cornerRadius(15)
-            .shadow(radius: 3)
+            .shadow(radius: 2)
         }
     }
 }

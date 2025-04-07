@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct OtherView: View {
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    
     @StateObject private var otherViewModel = OtherViewModel()
     var body: some View {
-        TopBar
-        Spacer().frame(height: 41)
-        welcomField
-        Spacer().frame(height:24)
-        welcomeField2
-        Spacer().frame(height: 41)
-        payField
-        Spacer().frame(height: 41)
-        ServiceField
-        MyTabView()
+        VStack{
+            TopBar
+            Spacer().frame(height: 41)
+            welcomField
+            Spacer().frame(height:24)
+            welcomeField2
+            Spacer().frame(height: 41)
+            payField
+            Spacer().frame(height: 41)
+            ServiceField            
+        }
     }
     
     var TopBar: some View {
@@ -27,7 +30,10 @@ struct OtherView: View {
             Text("Other")
                 .font(.mainTextBold24)
             Spacer()
-            Button(action: {print("logout")}){
+            Button(action: {
+                isLoggedIn = false
+                print("logout")})
+            {
                 Image("logout")
             }
         }

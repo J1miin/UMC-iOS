@@ -13,7 +13,9 @@ class SignupViewModel: ObservableObject {
     @Published var nickname : String = ""
     @Published var email : String = ""
     @Published var pwd : String = ""
-    
+    @AppStorage("email") private var savedEmail = ""
+    @AppStorage("pwd") private var savedPwd = ""
+    @AppStorage("nickName") private var savedNickname = ""
     init(){
         let savedData = signupModel.getData()
         self.nickname=savedData.nickName
@@ -22,7 +24,15 @@ class SignupViewModel: ObservableObject {
     }
     
     func saveUserData(){
-        signupModel.setData(nickName: nickname, email:email,password:pwd)
+        if !nickname.isEmpty && !email.isEmpty && !pwd.isEmpty {
+            signupModel.setData(nickName: nickname, email: email, password: pwd)
+            savedEmail = email
+            savedPwd = pwd
+            savedNickname = nickname
+
+        } else {
+            print("한글자 이상 필요")
+        }
     }
 }
 

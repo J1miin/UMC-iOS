@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignupView: View {
     @StateObject private var signUpViewModel = SignupViewModel()
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack(alignment:.leading){
             textField
@@ -42,6 +43,8 @@ struct SignupView: View {
         VStack(){
             Button(action: {
                 signUpViewModel.saveUserData()
+                print(signUpViewModel.nickname)
+                dismiss()
             }) {
                 Text("생성하기")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

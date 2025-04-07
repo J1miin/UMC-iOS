@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct iOS_Week1_ASS1App: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+        var body: some Scene {
+            WindowGroup {
+                RootView()
+            }
         }
-    }
 }
