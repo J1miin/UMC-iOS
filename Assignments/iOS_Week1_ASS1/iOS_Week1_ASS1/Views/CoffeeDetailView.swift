@@ -169,21 +169,21 @@ struct CoffeeDetailView: View {
 }
 
 
-
-#Preview {
-    CoffeeDetailView(viewModel: {
-        let viewModel = CoffeeDetailViewModel()
-        viewModel.setSelectedCoffee(CoffeeDetail(
-            kName: "아이스 아메리카노",
-            eName: "Iced Americano",
-            description: "에스프레소에 물을 더한 시원한 음료",
-            price: 4500,
-            imgName: "ice_americano",
-            drinkType: [.iced]  // Changed from "ice" string to [.iced] array
-        ))
-        return viewModel
-    }())
-}
+//
+//#Preview {
+//    CoffeeDetailView(viewModel: {
+//        let viewModel = CoffeeDetailViewModel()
+//        viewModel.setSelectedCoffee(CoffeeDetail(
+//            kName: "아이스 아메리카노",
+//            eName: "Iced Americano",
+//            description: "에스프레소에 물을 더한 시원한 음료",
+//            price: 4500,
+//            imgName: "ice_americano",
+//            drinkType: [.iced]  // Changed from "ice" string to [.iced] array
+//        ))
+//        return viewModel
+//    }())
+//}
 
 struct CoffeeDetailView_Preview: PreviewProvider {
     static var devices = ["iPhone 11", "iPhone 16 Pro"]

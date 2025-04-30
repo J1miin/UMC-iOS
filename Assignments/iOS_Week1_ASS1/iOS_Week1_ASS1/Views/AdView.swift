@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AdView: View {
     @Environment(\.dismiss) var dismiss
-    
+    @Binding var showAd: Bool
     var body: some View {
         VStack{
             AdPopUp
@@ -42,7 +42,8 @@ struct AdView: View {
                     Spacer() // Spacer를 넣어 버튼을 오른쪽으로 정렬
                     Button(action: {
                         print("닫기")
-                        dismiss() //Enviromental Dismiss
+                        showAd = false
+                        dismiss()
                     }) {
                         Text("X 닫기")
                             .foregroundColor(.gray05)
@@ -58,5 +59,5 @@ struct AdView: View {
 }
 
 #Preview {
-    AdView()
+    AdView(showAd: .constant(true))
 }

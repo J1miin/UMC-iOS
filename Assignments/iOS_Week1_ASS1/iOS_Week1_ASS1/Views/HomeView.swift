@@ -12,42 +12,48 @@ struct HomeView: View {
     
     @State private var selectedCoffee: CoffeeDetail? = nil
     @State private var isDetailPresented: Bool = false
+    @State private var showAd: Bool = true
 
     var body: some View {
-        
-        NavigationStack {
-            ScrollView {
-                LazyVStack(spacing: 0) {
-                    TopBanner
-                    Spacer().frame(height: 13)
-                    AdBanner
-                    Spacer().frame(height: 10)
-                    RecommendView
-                    Spacer().frame(height: 20)
-                    EventBanner
-                    Spacer().frame(height: 20)
-                    WhatsNews
-                    Spacer().frame(height: 20)
-                    BottomBanner
-                    Spacer().frame(height: 20)
-                    Dessert
-                    Spacer().frame(height: 20)
-                    BottomBanner2
+        if showAd {
+            AdView(showAd: $showAd)
+        }
+        if !showAd {
+            NavigationStack {
+                ScrollView {
+                    LazyVStack(spacing: 0) {
+                        TopBanner
+                        Spacer().frame(height: 13)
+                        AdBanner
+                        Spacer().frame(height: 10)
+                        RecommendView
+                        Spacer().frame(height: 20)
+                        EventBanner
+                        Spacer().frame(height: 20)
+                        WhatsNews
+                        Spacer().frame(height: 20)
+                        BottomBanner
+                        Spacer().frame(height: 20)
+                        Dessert
+                        Spacer().frame(height: 20)
+                        BottomBanner2
+                    }
                 }
-            }
-            .ignoresSafeArea()
-            
-            .navigationDestination(isPresented: $isDetailPresented) {
-                if let coffee = selectedCoffee {
-                    CoffeeDetailView(viewModel: {
-                        let vm = CoffeeDetailViewModel()
-                        vm.setSelectedCoffee(coffee)
-                        return vm
-                    }())
-                    .navigationBarBackButtonHidden(true)
+                .ignoresSafeArea()
+                
+                .navigationDestination(isPresented: $isDetailPresented) {
+                    if let coffee = selectedCoffee {
+                        CoffeeDetailView(viewModel: {
+                            let vm = CoffeeDetailViewModel()
+                            vm.setSelectedCoffee(coffee)
+                            return vm
+                        }())
+                        .navigationBarBackButtonHidden(true)
+                    }
                 }
             }
         }
+        
     }
 
     private var TopBanner : some View {
@@ -58,9 +64,11 @@ struct HomeView: View {
                 .frame(height:226)
                 .clipped()
             VStack(alignment: .leading, spacing: 29){
-                Spacer().frame(height: 106)
+                Spacer().frame(height: 100)
                 Text("골든 미모사 그린 티와 함께\n행복한 새해의 축배를 들어요!")
                     .font(.mainTextBold24)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
                 HStack(spacing: 36.53){
                     //별 게이지
                     VStack(alignment: .leading){

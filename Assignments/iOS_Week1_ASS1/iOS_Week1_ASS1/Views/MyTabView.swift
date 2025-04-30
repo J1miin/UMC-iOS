@@ -12,7 +12,7 @@ struct MyTabView: View {
     @State private var selection = 0
     var body: some View {
         TabView(selection: $selection) {
-            HomeView() //나중에 여기를 view로 바꾸면 됨!
+            HomeView()
                 .tabItem {
                     Text("Home")
                     Image("home")
@@ -30,7 +30,7 @@ struct MyTabView: View {
                     Image("order")
                 }
                 .tag(2)
-            Text("Shop")
+            ShopView()
                 .tabItem {
                     Text("Shop")
                     Image("shop")
