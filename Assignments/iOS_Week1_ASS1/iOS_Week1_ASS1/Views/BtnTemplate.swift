@@ -10,10 +10,12 @@ import SwiftUI
 struct BtnTemplate: View {
     let title: String
     let imageName: String
+    let router: NavigationRouter
+    let destination: Route
     
     var body: some View {
         Button(action:{
-            print(title)
+            router.push(destination)
         }){
             VStack {
                 Image(imageName)

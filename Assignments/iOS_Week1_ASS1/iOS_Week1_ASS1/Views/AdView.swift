@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct AdView: View {
-    @Environment(\.dismiss) var dismiss
+//    @Environment(\.dismiss) var dismiss
     @Binding var showAd: Bool
+    
     var body: some View {
         VStack{
             AdPopUp
@@ -18,7 +19,6 @@ struct AdView: View {
     }
     
     private var AdPopUp : some View{
-        
         VStack{
             Image("promotionImg")
                 .resizable()
@@ -41,9 +41,10 @@ struct AdView: View {
                 HStack {
                     Spacer() // Spacer를 넣어 버튼을 오른쪽으로 정렬
                     Button(action: {
-                        print("닫기")
-                        showAd = false
-                        dismiss()
+                        DispatchQueue.main.async {
+                            showAd = false
+                        }
+                        //dismiss()
                     }) {
                         Text("X 닫기")
                             .foregroundColor(.gray05)

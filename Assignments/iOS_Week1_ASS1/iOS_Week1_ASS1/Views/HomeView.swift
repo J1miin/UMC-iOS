@@ -1,10 +1,3 @@
-//
-//  HomeView.swift
-//  iOS_Week1_ASS1
-//
-//  Created by 김지민 on 4/6/25.
-//
-
 import SwiftUI
 
 struct HomeView: View {
@@ -40,7 +33,6 @@ struct HomeView: View {
                     }
                 }
                 .ignoresSafeArea()
-                
                 .navigationDestination(isPresented: $isDetailPresented) {
                     if let coffee = selectedCoffee {
                         CoffeeDetailView(viewModel: {
@@ -56,7 +48,7 @@ struct HomeView: View {
         
     }
 
-    private var TopBanner : some View {
+    var TopBanner : some View {
         ZStack(alignment: .leading){
             Image("top_img")
                 .resizable()
@@ -105,7 +97,7 @@ struct HomeView: View {
         }.frame(height: 259)
     }
     
-    private var AdBanner : some View {
+    var AdBanner : some View {
         VStack{
             Image("adBanner")
                 .resizable()
@@ -133,7 +125,7 @@ struct HomeView: View {
 //
 //        }.padding(.horizontal,20)
 //    }
-    private var RecommendView: some View {
+    var RecommendView: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 0){
                 Text("\(viewModel.displayNickname)")
@@ -163,7 +155,7 @@ struct HomeView: View {
     }
 
     
-    private var EventBanner : some View {
+    var EventBanner : some View {
         VStack(spacing: 20){
             Image("eventBanner")
                 .resizable()
@@ -174,7 +166,7 @@ struct HomeView: View {
                 .padding(.horizontal, 10)
         }
     }
-    private var WhatsNews : some View{
+    var WhatsNews : some View{
         VStack(alignment: .leading) {
             Text("What's New")
                 .font(.mainTextBold24)
@@ -190,7 +182,7 @@ struct HomeView: View {
             }
         }
     }
-    private var BottomBanner : some View {
+    var BottomBanner : some View {
         VStack(spacing: 20){
             Image("mugBanner")
                .resizable()
@@ -208,7 +200,7 @@ struct HomeView: View {
                .padding(.horizontal, 10)
         }
     }
-    private var Dessert : some View{
+    var Dessert : some View{
         VStack(alignment: .leading) {
             Text("하루가 달콤해지는 디저트")
                 .font(.mainTextBold24)
@@ -224,7 +216,7 @@ struct HomeView: View {
             }
         }
     }
-    private var BottomBanner2 : some View {
+    var BottomBanner2 : some View {
         VStack(spacing: 20){
             Image("coldBrewBanner")
                .resizable()

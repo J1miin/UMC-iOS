@@ -9,19 +9,31 @@ import SwiftUI
 
 struct OtherView: View {
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
-    
     @StateObject private var otherViewModel = OtherViewModel()
+    @State private var router = NavigationRouter()
+
     var body: some View {
-        VStack{
-            TopBar
-            Spacer().frame(height: 41)
-            welcomField
-            Spacer().frame(height:24)
-            welcomeField2
-            Spacer().frame(height: 41)
-            payField
-            Spacer().frame(height: 41)
-            ServiceField            
+        NavigationStack(path : $router.path){
+            VStack{
+                TopBar
+                Spacer().frame(height: 41)
+                welcomField
+                Spacer().frame(height:24)
+                welcomeField2
+                Spacer().frame(height: 41)
+                payField
+                Spacer().frame(height: 41)
+                ServiceField
+            }.navigationDestination(for: Route.self) { route in
+                switch route {
+                case .receipt:
+                    ReceiptView()
+                case .starHistory:
+                    Text("별 히스토리 화면")
+                case .myMenu:
+                    Text("나만의 메뉴 화면")
+                }
+            }
         }
     }
     
@@ -53,11 +65,11 @@ struct OtherView: View {
     
     var welcomeField2 : some View {
         HStack{
-            BtnTemplate(title: "별 히스토리", imageName: "star_history")
+            BtnTemplate(title: "별 히스토리", imageName: "star_history",router: router, destination: .starHistory)
             Spacer().frame(width: 10.5)
-            BtnTemplate(title: "전자 영수증", imageName: "receipt")
+            BtnTemplate(title: "전자 영수증", imageName: "receipt", router: router, destination: .receipt)
             Spacer().frame(width: 10.5)
-            BtnTemplate(title: "나만의 메뉴", imageName: "my")
+            BtnTemplate(title: "나만의 메뉴", imageName: "my", router:router, destination: .myMenu)
         }
     }
     

@@ -9,8 +9,8 @@ struct ShopView: View {
                 AllProducts
                 BestProducts
                 NewProducts
-            }
-        }.padding(.horizontal,16)
+            }.padding(.horizontal, 16)
+        }
     }
     
     private var Top : some View{
