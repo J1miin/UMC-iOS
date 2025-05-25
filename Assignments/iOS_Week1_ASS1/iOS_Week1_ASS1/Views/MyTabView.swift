@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MyTabView: View {
-    @AppStorage("isLoggedIn") var isLoggedIn = false
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var selection = 0
+    
     var body: some View {
         TabView(selection: $selection) {
             HomeView()
@@ -24,7 +25,7 @@ struct MyTabView: View {
                     Image("pay")
                 }
                 .tag(1)
-            Text("Order")
+            OrderView()
                 .tabItem {
                     Text("Order")
                     Image("order")
@@ -42,7 +43,6 @@ struct MyTabView: View {
                     Image("other")
                 }
                 .tag(4)
-            
         }
         .tint(Color.green02)
     }
@@ -56,6 +56,7 @@ struct SwiftUIView_Preview4: PreviewProvider {
             MyTabView()
                 .previewDevice(PreviewDevice(rawValue: device))
                 .previewDisplayName(device)
+                .environmentObject(AuthViewModel())
         }
     }
 }

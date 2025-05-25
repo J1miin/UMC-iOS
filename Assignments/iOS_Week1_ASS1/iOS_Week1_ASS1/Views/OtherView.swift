@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct OtherView: View {
-    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject private var otherViewModel = OtherViewModel()
     @State private var router = NavigationRouter()
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         NavigationStack(path : $router.path){
@@ -43,9 +44,9 @@ struct OtherView: View {
                 .font(.mainTextBold24)
             Spacer()
             Button(action: {
-                isLoggedIn = false
-                print("logout")})
-            {
+                authViewModel.logout()
+                dismiss()
+            }) {
                 Image("logout")
             }
         }
@@ -60,7 +61,7 @@ struct OtherView: View {
                 .foregroundStyle(Color.green02)
             + Text("님 \n환영합니다!🙌🏻")
                 .font(.mainTextSemiBold24)
-        }.multilineTextAlignment(.center) //텍스트 중앙 정렬하기
+        }.multilineTextAlignment(.center) //텍스트 중앙 정렬
     }
     
     var welcomeField2 : some View {

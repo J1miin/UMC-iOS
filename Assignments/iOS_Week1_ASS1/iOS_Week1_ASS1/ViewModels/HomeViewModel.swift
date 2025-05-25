@@ -9,8 +9,52 @@ import Foundation
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    @AppStorage("nickName") private var storedNickname: String = ""
+    @Published var displayNickname: String = ""
     
+    init() {
+        loadNickname()
+        // 로그인 성공 알림 구독
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleLoginSuccess),
+            name: Notification.Name("KakaoLoginSuccess"),
+            object: nil
+        )
+        
+        // 로그아웃 성공 알림 구독
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleLogoutSuccess),
+            name: Notification.Name("LogoutSuccess"),
+            object: nil
+        )
+    }
+    
+    func loadNickname() {
+        if let userInfo = KeychainService.shared.loadUser() {
+            DispatchQueue.main.async {
+                self.displayNickname = userInfo.nickname
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.displayNickname = "(설정한 닉네임)"
+            }
+        }
+    }
+    
+    @objc private func handleLoginSuccess() {
+        loadNickname()
+    }
+    
+    @objc private func handleLogoutSuccess() {
+        DispatchQueue.main.async {
+            self.displayNickname = "(설정한 닉네임)"
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     @Published var coffeeItems: [CoffeeItem] = [
         CoffeeItem(id: UUID(), name: "에스프레소 콘파나", eName: "Espresso Con Panna", price: 4100, imageName: "espresso_conpanna", description: "에스프레소에 휘핑크림을 얹은 음료", drinkType: [.hot]),
@@ -60,9 +104,5 @@ class HomeViewModel: ObservableObject {
             imageName: "minipie"
         )
     ]
-    
-    var displayNickname: String {
-        return storedNickname.isEmpty ? "(설정 닉네임)" : storedNickname
-    }
 }
 

@@ -8,6 +8,7 @@ struct HomeView: View {
     @State private var showAd: Bool = true
 
     var body: some View {
+        //onAppear로 대체 가능
         if showAd {
             AdView(showAd: $showAd)
         }

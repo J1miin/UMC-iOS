@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9ACD26D12DD10010001197C6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9ACD26D02DD10010001197C6 /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		9AD48DEA2D8EA41E00D31768 /* iOS_Week1_ASS1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_Week1_ASS1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ACD26D12DD10010001197C6 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = iOS_Week1_ASS1;
 			packageProductDependencies = (
+				9ACD26D02DD10010001197C6 /* Alamofire */,
 			);
 			productName = iOS_Week1_ASS1;
 			productReference = 9AD48DEA2D8EA41E00D31768 /* iOS_Week1_ASS1.app */;
@@ -94,6 +100,10 @@
 			);
 			mainGroup = 9AD48DE12D8EA41E00D31768;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9ACD26CF2DD10010001197C6 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				9A9CFA102DD1C2A2000073C6 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9AD48DEB2D8EA41E00D31768 /* Products */;
 			projectDirPath = "";
@@ -260,6 +270,9 @@
 				INFOPLIST_FILE = "iOS-Week1-ASS1-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치 사용 권한 필요";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치 사용 항상 권한 ";
+				INFOPLIST_KEY_NSLocationUsageDescription = "위치 권환 허용에 필요";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -293,6 +306,9 @@
 				INFOPLIST_FILE = "iOS-Week1-ASS1-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치 사용 권한 필요";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치 사용 항상 권한 ";
+				INFOPLIST_KEY_NSLocationUsageDescription = "위치 권환 허용에 필요";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -334,6 +350,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9A9CFA102DD1C2A2000073C6 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.24.1;
+			};
+		};
+		9ACD26CF2DD10010001197C6 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9ACD26D02DD10010001197C6 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9ACD26CF2DD10010001197C6 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9AD48DE22D8EA41E00D31768 /* Project object */;
 }

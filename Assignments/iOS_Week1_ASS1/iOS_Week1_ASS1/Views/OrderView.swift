@@ -4,6 +4,7 @@ struct OrderView: View {
     @StateObject private var viewModel = OrderViewModel()
     @Namespace private var segmentAnimation
     @State private var showStoreSheet = false
+    
     var body: some View {
         VStack(alignment:.leading, spacing: 6) {
             Text("Order")
@@ -62,13 +63,11 @@ struct OrderView: View {
             }
         }
         .sheet(isPresented: $showStoreSheet) {
-            //매장설정 뷰
-            Spacer()
+            // onDismiss에서 cleanup() 호출 제거
             StoreSheetView()
                 .presentationDragIndicator(.visible)
         }
         .presentationDetents([.medium, .large])
-
     }
 }
 

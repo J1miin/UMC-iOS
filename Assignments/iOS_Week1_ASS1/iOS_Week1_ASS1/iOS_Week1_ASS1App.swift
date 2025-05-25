@@ -7,8 +7,12 @@
 
 import SwiftUI
 
+
 @main
 struct iOS_Week1_ASS1App: App {
+//    init() {
+//           KakaoSDK.initSDK(appKey: "0db36e061a047453c134938ab8e89e6e")
+//       }
     @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
         var body: some Scene {
             WindowGroup {

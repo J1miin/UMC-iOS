@@ -1,24 +1,17 @@
-//
-//  LoginView.swift
-//  iOS_Week1_ASS1
-//
-//  Created by 김지민 on 3/22/25.
-//
-
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var isFocused: Bool = false
     @State private var isPwdFocused: Bool = false
     @StateObject private var loginViewModel = LoginViewModel()
-    @AppStorage("email") private var savedEmail = ""
-    @AppStorage("pwd") private var savedPwd = ""
-    @AppStorage("isLoggedIn") private var isLoggedIn = false
-
     @State private var move = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     var body: some View {
-        NavigationStack{
-            VStack{
+        NavigationStack {
+            VStack {
                 Spacer().frame(height: 104)
                 mainTitleGroup
                 Spacer().frame(height: 104)
@@ -27,15 +20,33 @@ struct LoginView: View {
                 LoginGroup
             }
             .padding(.horizontal, 19)
-            .navigationDestination(isPresented: $move){
+            .navigationDestination(isPresented: $move) {
                 SignupView()
+            }
+            .fullScreenCover(isPresented: $loginViewModel.isLoggedIn) {
+                MyTabView()
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
+            }
+            // 카카오 로그인 결과 알림 수신 (성공 또는 실패)
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("KakaoLoginSuccess"))) { _ in
+                loginViewModel.isLoggedIn = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("KakaoLoginFailure"))) { notification in
+                if let errorMessage = notification.object as? String {
+                    alertMessage = "카카오 로그인 실패: \(errorMessage)"
+                } else {
+                    alertMessage = "카카오 로그인에 실패했습니다."
+                }
+                showAlert = true
             }
         }
     }
     
-    private var mainTitleGroup : some View {
-        VStack(alignment: .leading){
-            Group{
+    private var mainTitleGroup: some View {
+        VStack(alignment: .leading) {
+            Group {
                 Image("StarbucksLogo1x").resizable()
                     .frame(width: 97, height: 95)
                 Spacer().frame(height: 28)
@@ -51,9 +62,9 @@ struct LoginView: View {
         }
     }
 
-    private var IdPwdGroup : some View {
-        VStack(alignment:.leading){
-            TextField("아이디", text: $loginViewModel.id ,onEditingChanged :{ editing in isFocused = editing})
+    private var IdPwdGroup: some View {
+        VStack(alignment: .leading) {
+            TextField("아이디", text: $loginViewModel.id, onEditingChanged: { editing in isFocused = editing })
                 .font(.mainTextRegular13)
                
             Divider()
@@ -61,31 +72,38 @@ struct LoginView: View {
             
             Spacer().frame(height: 47)
             
-            TextField("비밀번호", text: $loginViewModel.pwd , onEditingChanged :{ editing in isPwdFocused = editing})
+            SecureField("비밀번호", text: $loginViewModel.pwd)
                 .font(.mainTextRegular13)
+                .onTapGesture {
+                    isPwdFocused = true
+                }
                 
             Divider()
                 .background(isPwdFocused ? Color.green01 : Color.gray01)
+            
             Spacer().frame(height: 47)
+            
             Button {
-                if loginViewModel.id == savedEmail && loginViewModel.pwd == savedPwd {
-                    print("성공")
-                    isLoggedIn = true  // 탭뷰로 전환됨
-                } else {
-                    print("❌ 로그인 실패: 이메일이나 비밀번호가 다릅니다.")
+                if loginViewModel.id.isEmpty || loginViewModel.pwd.isEmpty {
+                    alertMessage = "아이디와 비밀번호를 모두 입력해주세요."
+                    showAlert = true
+                    return
+                }
+                
+                if !loginViewModel.login() {
+                    alertMessage = "아이디 또는 비밀번호가 일치하지 않습니다."
+                    showAlert = true
                 }
             } label: {
                 Image("NormalLogin")
                     .resizable()
                     .frame(width: 364, height: 46)
             }
-
-            
         }
     }
 
-    private var LoginGroup : some View {
-        VStack{
+    private var LoginGroup: some View {
+        VStack {
             Button(action: {
                 move = true
             }) {
@@ -95,17 +113,17 @@ struct LoginView: View {
                     .foregroundStyle(Color.gray04)
             }
             Spacer().frame(height: 19)
-            Image("KakaoLogin")
+            Button(action: {
+                loginViewModel.kakaoLogin()
+            }) {
+                Image("KakaoLogin")
+            }
+
             Spacer().frame(height: 19)
             Image("AppleLogin")
         }
-        
     }
-    
 }
-
-
-
 
 struct SwiftUIView_Preview: PreviewProvider {
     static var devices = ["iPhone 11", "iPhone 16 Pro"]
@@ -115,6 +133,7 @@ struct SwiftUIView_Preview: PreviewProvider {
             LoginView()
                 .previewDevice(PreviewDevice(rawValue: device))
                 .previewDisplayName(device)
+                .environmentObject(AuthViewModel())
         }
     }
 }
